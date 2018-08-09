@@ -45,8 +45,7 @@ RUN apt-fast install -y \
     && a2enmod ext_filter
 
 # Install the gmp and mcrypt extensions
-RUN apt-get update -y
-RUN apt-get install -y libgmp-dev re2c libmhash-dev libmcrypt-dev file
+RUN apt-fast update -y ; apt-fast install -y libgmp-dev re2c libmhash-dev libmcrypt-dev file
 RUN ln -s /usr/include/x86_64-linux-gnu/gmp.h /usr/local/include/
 RUN docker-php-ext-configure gmp
 RUN docker-php-ext-install gmp
