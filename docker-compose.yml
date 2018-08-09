@@ -1,0 +1,63 @@
+# Maintainer Information
+# 88plug | https://88plug.com
+
+version: "2"
+networks:
+  proxy:
+    external: true
+  internal:
+    external: false
+services:
+  redis:
+    image: redis
+    ports:
+      - "127.0.0.1:6379:6379" #use "redis:6082 in wordpress"
+    restart: always
+    networks:
+      - internal
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+      - REDIS_EXTRA_FLAGS=--maxmemory 512mb
+  memcached:
+    image: memcached
+    ports:
+      - "127.0.0.1:11211:11211" #use "memcached:6082 in wordpress"
+    restart: always
+    networks:
+      - internal
+    environment:
+      - MEMCACHED_MEMORY=2048
+      - MEMCACHED_TCP_PORT=11211
+      - MEMCACHED_THREADS=4
+      - MEMCACHED_CONNECTIONS=1024
+      - MEMCACHED_FACTOR=1.25
+  wordpress:
+    restart: always
+    image: 88plug:wordpress
+    environment:
+      WORDPRESS_DB_PASSWORD: MYSQLROOTPASS
+      WORDPRESS_DB_NAME: wordpress-DBNAME
+    labels:
+      - traefik.backend=wordpress
+      - traefik.frontend.rule=Host:www.DOMAIN,DOMAIN
+      - traefik.docker.network=proxy
+      - traefik.port=80
+    networks:
+      - internal
+      - proxy
+    depends_on:
+      - mysql
+      - memcached
+      - redis
+    volumes:
+      - ./uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
+      - ./wp-content:/var/www/html/wp-content
+  mysql:
+    restart: always
+    image: mariadb:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: MYSQLROOTPASS 
+    networks:
+      - internal
+    labels:
+      - traefik.enable=false
