@@ -1,4 +1,24 @@
 #!/bin/bash
+printf "%25s%s" "Checking docker" " ---> "
+            dockerCheck=$(docker ps)
+            if (( $? != 0 )); then
+                echo "FAILURE"
+                echo
+                echo "Cannot reach Docker" 
+                apt-get install -y docker.io
+            else
+                echo "OK"
+fi
+printf "%25s%s" "Checking docker-compose" " ---> "
+            dockerCheck=$(docker-compose --version)
+            if (( $? != 0 )); then
+                echo "FAILURE"
+                echo
+                echo "Cannot reach docker-compose" 
+                apt-get install -y docker-compose
+            else
+                echo "OK"
+fi
 echo "Please enter your email used for SSL"
 read email
 echo "You entered $email"
