@@ -7,7 +7,7 @@ Use 88plug:wordpress to get access to a pre-compiled version of Wordpress with a
 
 Before you start ensure your DNS records are pointing at the correct server, this will generate SSL certificates.
 
-git clone https://github.com/88plug/wordpress.git
+git clone https://github.com/88plug/wordpress.git ; cd wordpress
 chmod +x ./make_site.sh ; ./make_site.sh ; cd $domain/ ; chmod +x restart.sh
 ./restart.sh 
 
