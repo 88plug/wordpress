@@ -33,7 +33,7 @@ services:
       - MEMCACHED_FACTOR=1.25
   wordpress:
     restart: always
-    image: 88plug:wordpress
+    image: 88plug/wordpress
     environment:
       WORDPRESS_DB_PASSWORD: MYSQLROOTPASS
       WORDPRESS_DB_NAME: wordpress-DBNAME
