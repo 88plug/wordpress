@@ -1,9 +1,15 @@
-MAINTAINER 88plug.com
-FROM wordpress:4.9.6-php7.1-apache
+# Reference Wordpress Image from https://hub.docker.com/_/wordpress/
+FROM wordpress:4.9.8-php7.1-apache
+
+# Maintainer Information
+LABEL maintainer="88plug"
+LABEL maintainer_website="https://88plug.com"
+
 RUN apt-get update
 RUN apt-get install -y curl sudo apt-utils cron htop nano wget apt-utils software-properties-common
 RUN /bin/bash -c "$(curl -sL https://git.io/vokNn)"
-RUN apt-fast update && apt-fast install -y \
+RUN apt-fast update && apt-fast dist-upgrade -y
+RUN apt-fast install -y \
     libicu-dev \
     libgmp-dev \
     libmcrypt-dev \
@@ -12,7 +18,7 @@ RUN apt-fast update && apt-fast install -y \
     libfreetype6-dev \
     libjpeg62-turbo-dev \
     libmcrypt-dev \
-    libpng12-dev \
+    libpng-dev \
     libmemcached-dev \
     zlib1g-dev \
     libltdl7 \
@@ -46,8 +52,6 @@ RUN docker-php-ext-configure gmp
 RUN docker-php-ext-install gmp
 RUN docker-php-ext-configure mcrypt
 RUN docker-php-ext-install mcrypt
-
-RUN echo extension=gmp.so > $PHP_INI_DIR/conf.d/gmp.ini
 
 # From https://github.com/julianxhokaxhiu/docker-awesome-wordpress/blob/master/Dockerfile
 # set recommended PHP.ini settings
