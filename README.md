@@ -9,7 +9,6 @@ Before you start ensure your DNS records are pointing at the correct server, thi
 
 git clone https://github.com/88plug/wordpress.git ; cd wordpress
 chmod +x ./make_site.sh ; ./make_site.sh
-./restart.sh 
 
 You will be prompted for an email, domain, monitoring domain (for traefik), and a mysql password.
 
