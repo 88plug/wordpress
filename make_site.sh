@@ -5,7 +5,7 @@ printf "%25s%s" "Checking docker" " ---> "
                 echo "FAILURE"
                 echo
                 echo "Cannot reach Docker" 
-                apt-get install -y docker.io
+                sudo apt-get install -y docker.io
             else
                 echo "OK"
 fi
@@ -15,7 +15,7 @@ printf "%25s%s" "Checking docker-compose" " ---> "
                 echo "FAILURE"
                 echo
                 echo "Cannot reach docker-compose" 
-                apt-get install -y docker-compose
+                sudo apt-get install -y docker-compose
             else
                 echo "OK"
 fi
