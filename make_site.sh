@@ -29,6 +29,6 @@ cp traefik.toml $domain/
 cp docker-compose.yml $domain/
 cp uploads.ini $domain/
 
-cd $domain ; touch acme.json ; chmod 600 acme.json
+cd $domain ; touch acme.json ; chmod 600 acme.json ; chmod +x ./restart.sh
 
 echo "Your site $domain is now ready, please run $domain/restart.sh"
