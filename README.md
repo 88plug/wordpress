@@ -1,4 +1,4 @@
-# wordpress
+# 88plug wordpress
 
 88plug/wordpress is a fork of the wordpress:4.9.8-php7.1-apache Docker image.
 
